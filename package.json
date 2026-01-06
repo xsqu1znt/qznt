@@ -1,0 +1,36 @@
+{
+    "name": "@gg/utils",
+    "version": "1.0.0",
+    "description": "A utility library for @xsqu1znt's projects.",
+    "license": "MIT",
+    "author": "xsqu1znt",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "packageManager": "pnpm@10.27.0",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs",
+            "default": "./dist/index.js"
+        },
+        "./package.json": "./package.json"
+    },
+    "files": [
+        "dist",
+        "README.md"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "check": "tsc --noEmit",
+        "format": "prettier --write \"./**/*.{ts,json}\""
+    },
+    "devDependencies": {
+        "@types/node": "^25.0.3",
+        "prettier": "^3.7.4",
+        "tsup": "^8.5.1",
+        "type-fest": "^5.3.1",
+        "typescript": "^5.9.3"
+    }
+}
