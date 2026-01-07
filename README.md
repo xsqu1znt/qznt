@@ -1,6 +1,6 @@
 # qznt
 
-**qznt** (pronounced _quisite_ as in _exquisite_) is a strictly-typed, high-performance utility toolkit for modern TypeScript and Node.js environments.
+**qznt** (pronounced as in _ex-quisite_) is a strictly-typed, high-performant utility toolkit for modern TypeScript/Javascript and Node.js environments.
 
 ## 🚀 Installation
 
@@ -14,7 +14,7 @@ yarn add qznt
 
 ## 🛠 Quick Start
 
-You can import the global toolkit (as $), qznt, or specific namespaces.
+You can import the global toolkit as $, qznt, or specific namespaces.
 
 ```ts
 import $ from "qznt";
@@ -30,7 +30,7 @@ const theme = $.obj.get(settings, "ui.theme.mode", "dark");
 const timeRemaining = $.date.duration(Date.now() + 5000); // "5 seconds"
 ```
 
-## 📦 Namespaces at a Glance
+## 📦 Namespaces
 
 - **`$.obj` (Data)**: Type-safe deep paths (`get`, `set`, `merge`, `pick`, `omit`)
 - **`$.arr` (Lists)**: Advanced `chunk`, `cluster`, `shuffle`, `unique`, and `seqMap`
@@ -65,6 +65,23 @@ heartbeat.pause(); // Calculates remaining time in the current cycle
 heartbeat.resume(); // Resumes with the exact remaining delay
 ```
 
+### Advanced Caching & Storage
+
+`qznt` provides high-performant data persistence and memory management.
+
+- `$.Cache`: An in-memory TTL cache with Sampled Passive/Active Eviction. It automatically cleans up expired entries to prevent memory leaks without blocking the event loop.
+- `$.Storage`: A universal persistence layer. It automatically uses `localStorage` in the browser and falls back to a local JSON file in Node.js environments.
+
+```ts
+// Cache with a 1-minute global TTL
+const userCache = new $.Cache<UserData>(60000);
+userCache.set("user_1", data);
+
+// Persistent storage (Browser or Node)
+const settings = new $.Storage("app_settings");
+settings.set("theme", "dark");
+```
+
 ### Seedable Randomness
 
 Every random utility in `qznt` accepts an optional seed. This allows you to generate predictable random data for testing, games, or procedural generation.
@@ -82,7 +99,7 @@ A deep, recursive merge that maintains TypeScript's type safety across multiple 
 const config = $.obj.merge(defaultConfig, userConfig, envOverrides);
 ```
 
-### Advanced Type Guards
+### Type Guards
 
 The `is` namespace provides predicates that act as TypeScript type guards, ensuring safety across your application.
 
@@ -96,19 +113,28 @@ if ($.is.empty(results)) {
 }
 ```
 
-## 📜 Principles
+### Type-Safe Transformations
+
+The `to` and `arr` namespaces provide _exquisite_ ways to transform data structures while maintaining total type safety.
+
+```ts
+const userRecord = $.to.record(usersArray, u => ({
+    key: u.id,
+    value: { name: u.username, active: $.is.today(u.lastLogin) }
+}));
+```
+
+## 👀 Mentionables
 
 - Zero Dependencies: Lightweight and fast.
 - Tree-Shakable: Only bundle the functions you actually use.
 - Strictly Typed: Deep inference for everything from EventEmitter results to object paths.
 - Node & Browser: Optimized for Node.js but safe for modern browsers.
 
-## 👨‍💻 Author
+## About
 
-**xsqu1znt**
+Library by **@xsqu1znt**
 
-(_Created as a core library for my projects._)
-
-Published for anyone to use.
+_Created originally as a core library for my projects._ Published for anyone to use.
 
 License: MIT
