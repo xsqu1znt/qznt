@@ -10,9 +10,13 @@ export interface RndArrayOptions {
 }
 
 export interface RndStrOptions {
-    casing?: AlphaCasing;
+    /** Optional seed for RNG. */
     seed?: number;
+    /** Character casing mode. */
+    casing?: AlphaCasing;
+    /** Custom character pool. */
     customChars?: string;
+    /** Characters to exclude from the pool. */
     exclude?: string | string[];
 }
 
