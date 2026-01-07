@@ -1,6 +1,6 @@
 # qznt
 
-**qznt** (pronounced as in _ex-quisite_) is a strictly-typed, high-performance utility toolkit for modern TypeScript and Node.js environments.
+**qznt** (pronounced _quisite_ as in _exquisite_) is a strictly-typed, high-performance utility toolkit for modern TypeScript and Node.js environments.
 
 ## 🚀 Installation
 
@@ -40,14 +40,14 @@ const timeRemaining = $.date.duration(Date.now() + 5000); // "5 seconds"
 - **`$.is` (Predicates)**: Type guards: `is.today`, `is.empty`, `is.object`, and `is.sorted`
 - **`$.format` (Strings)**: `currency`, `memory` (bytes), `ordinal`, and `compactNumber`
 - **`$.math` (Calculations)**: `lerp`, `invLerp`, `remap`, `percent`, and `sum`
-- **`$.fn` (Functions)**: High-performance `memoize` with TTL and custom resolvers
+- **`$.fn` (Functions)**: `memoize` with TTL and custom resolvers
 - **`$.async` (Promises)**: `retry` logic with exponential backoff and delay
 - **`$.to` (Transformations)**: Powerful data mappers like `to.record`
 - **`$.num` (Numbers)**: Essential logic like `clamp` and range handling
 
 ## ✨ Featured Utilities
 
-### The `Loop` (Smart Heartbeat)
+### The Smart `Loop`
 
 The `qznt.Loop` ensures asynchronous tasks never overlap. It waits for execution to finish before scheduling the next interval and supports precise pausing/resuming based on remaining time.
 
@@ -67,14 +67,14 @@ heartbeat.resume(); // Resumes with the exact remaining delay
 
 ### Seedable Randomness
 
-Every random utility in qznt accepts an optional seed. This allows you to generate predictable random data for testing, games, or procedural generation.
+Every random utility in `qznt` accepts an optional seed. This allows you to generate predictable random data for testing, games, or procedural generation.
 
 ```ts
 // Always returns the same item for seed 12345
 const item = $.rnd.choice(["Sword", "Shield", "Potion"], 12345);
 ```
 
-### Exquisite Object Merging
+### Object Merging
 
 A deep, recursive merge that maintains TypeScript's type safety across multiple sources.
 
@@ -103,8 +103,10 @@ if ($.is.empty(results)) {
 - Strictly Typed: Deep inference for everything from EventEmitter results to object paths.
 - Node & Browser: Optimized for Node.js but safe for modern browsers.
 
-👨‍💻 Author
-**xsqu1znt** _Created as a core library for my projects._
+## 👨‍💻 Author
+
+**xsqu1znt**
+_Created as a core library for my projects._
 Published for anyone to use.
 
 License: MIT
