@@ -1,7 +1,7 @@
 {
-    "name": "@gg/utils",
+    "name": "qznt",
     "version": "1.0.0",
-    "description": "A utility library for @xsqu1znt's projects.",
+    "description": "A lightweight, xsqu1zn't utility library for high-performance Node.js and TypeScript apps.",
     "license": "MIT",
     "author": "xsqu1znt",
     "main": "./dist/index.cjs",
