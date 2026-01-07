@@ -2,8 +2,6 @@
 
 **qznt** (pronounced as in _ex-quisite_) is a strictly-typed, high-performance utility toolkit for modern TypeScript and Node.js environments.
 
----
-
 ## 🚀 Installation
 
 ```bash
@@ -13,8 +11,6 @@ pnpm add qznt
 # or
 yarn add qznt
 ```
-
----
 
 ## 🛠 Quick Start
 
@@ -34,8 +30,6 @@ const theme = $.obj.get(settings, "ui.theme.mode", "dark");
 const timeRemaining = $.date.duration(Date.now() + 5000); // "5 seconds"
 ```
 
----
-
 ## 📦 Namespaces at a Glance
 
 - **`$.obj` (Data)**: Type-safe deep paths (`get`, `set`, `merge`, `pick`, `omit`)
@@ -50,8 +44,6 @@ const timeRemaining = $.date.duration(Date.now() + 5000); // "5 seconds"
 - **`$.async` (Promises)**: `retry` logic with exponential backoff and delay
 - **`$.to` (Transformations)**: Powerful data mappers like `to.record`
 - **`$.num` (Numbers)**: Essential logic like `clamp` and range handling
-
----
 
 ## ✨ Featured Utilities
 
@@ -104,16 +96,12 @@ if ($.is.empty(results)) {
 }
 ```
 
----
-
 ## 📜 Principles
 
 - Zero Dependencies: Lightweight and fast.
 - Tree-Shakable: Only bundle the functions you actually use.
 - Strictly Typed: Deep inference for everything from EventEmitter results to object paths.
 - Node & Browser: Optimized for Node.js but safe for modern browsers.
-
----
 
 👨‍💻 Author
 **xsqu1znt** _Created as a core library for my projects._
