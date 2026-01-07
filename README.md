@@ -27,7 +27,7 @@ import { obj, Loop, date } from "qznt";
 const theme = qznt.obj.get(settings, "ui.theme.mode", "dark");
 
 // Human-readable durations
-const timeRemaining = qznt.date.duration(Date.now() + 5000); // "5 seconds"
+const timeRemaining = $.date.duration(Date.now() + 5000); // "5 seconds"
 ```
 
 ## 📦 Namespaces
@@ -52,7 +52,7 @@ const timeRemaining = qznt.date.duration(Date.now() + 5000); // "5 seconds"
 The `qznt.Loop` ensures asynchronous tasks never overlap. It waits for execution to finish before scheduling the next interval and supports precise pausing/resuming based on remaining time.
 
 ```ts
-import $ from "qznt";
+import qznt from "qznt";
 
 const heartbeat = new qznt.Loop<string>(async () => {
     return await syncData();
