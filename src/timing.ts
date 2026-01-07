@@ -75,20 +75,7 @@ function throttle<T extends (...args: any[]) => any>(fn: T, limit: number): (...
     };
 }
 
-/**
- * Returns a promise that resolves after the given number of milliseconds.
- * @param ms The time to wait in milliseconds.
- */
-function wait(ms: number): Promise<boolean> {
-    return new Promise(resolve =>
-        setTimeout(() => {
-            resolve(true);
-        }, ms)
-    );
-}
-
 export const timing = {
     debounce,
-    throttle,
-    wait
+    throttle
 };

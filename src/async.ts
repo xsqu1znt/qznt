@@ -14,6 +14,19 @@ async function retry<T>(fn: () => Promise<T>, retries: number = 3, delay: number
     }
 }
 
+/**
+ * Returns a promise that resolves after the given number of milliseconds.
+ * @param ms The time to wait in milliseconds.
+ */
+function wait(ms: number): Promise<boolean> {
+    return new Promise(resolve =>
+        setTimeout(() => {
+            resolve(true);
+        }, ms)
+    );
+}
+
 export const async = {
-    retry
+    retry,
+    wait
 };

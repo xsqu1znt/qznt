@@ -5,7 +5,6 @@ import * as dateUtils from "./date";
 import * as formatUtils from "./format";
 import * as isUtils from "./is";
 import * as mathUtils from "./math";
-import * as numberUtils from "./num";
 import * as objectUtils from "./obj";
 import * as randomUtils from "./rnd";
 import * as stringUtils from "./str";
@@ -24,7 +23,6 @@ const $ = {
     ...formatUtils,
     ...isUtils,
     ...mathUtils,
-    ...numberUtils,
     ...objectUtils,
     ...timingUtils,
     ...randomUtils,
@@ -46,7 +44,6 @@ export * from "./date";
 export * from "./format";
 export * from "./is";
 export * from "./math";
-export * from "./num";
 export * from "./obj";
 export * from "./rnd";
 export * from "./str";
