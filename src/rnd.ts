@@ -1,10 +1,10 @@
 export type AlphaCasing = "lower" | "upper" | "mixed";
 
-export interface RndArrayOptions {
+export interface RndArrayOptions<T> {
     /** Optional seed for RNG. */
     seed?: number;
     /** Reroll if the result is equal to this value. */
-    not?: any;
+    not?: (item: T) => boolean;
     /** Maximum number of times to reroll if `not` is specified. [default: 10] */
     maxRerolls?: number;
 }
@@ -41,7 +41,7 @@ function chance(percent: number = 0.5, seed?: number): boolean {
  * @param array Array of items to choose from.
  * @param options Options for the choice function.
  */
-function choice<T>(array: T[], options: RndArrayOptions = {}): T {
+function choice<T>(array: T[], options: RndArrayOptions<T> = {}): T {
     const { seed, not, maxRerolls = 10 } = options;
     const random = seed !== undefined ? prng(seed) : Math.random;
     const rnd = () => array[Math.floor(random() * array.length)]!;
@@ -50,10 +50,10 @@ function choice<T>(array: T[], options: RndArrayOptions = {}): T {
 
     // NOTE: Ignores rerolling if seed is set and result is equal to `not`
     // to prevent infinite loops
-    if (seed !== undefined && array.length > 1) {
+    if (seed !== undefined && array.length > 1 && not !== undefined) {
         let rerolls = 0;
 
-        while (not !== undefined && result === not && rerolls < maxRerolls) {
+        while (not(result) && rerolls < maxRerolls) {
             result = rnd();
             rerolls++;
         }
@@ -188,7 +188,7 @@ function float(min: number, max: number, seed?: number): number {
  * @param array The array to generate an index for.
  * @param options Options for the index function.
  */
-function index(array: any[], options: RndArrayOptions = {}): number {
+function index<T>(array: T[], options: RndArrayOptions<number> = {}): number {
     const { seed, not, maxRerolls = 10 } = options;
     const random = seed !== undefined ? prng(seed) : Math.random;
     const rnd = () => Math.floor(random() * array.length);
@@ -197,10 +197,10 @@ function index(array: any[], options: RndArrayOptions = {}): number {
 
     // NOTE: Ignores rerolling if seed is set and result is equal to `not`
     // to prevent infinite loops
-    if (seed !== undefined && array.length > 1) {
+    if (seed !== undefined && array.length > 1 && not !== undefined) {
         let rerolls = 0;
 
-        while (not !== undefined && result === not && rerolls < maxRerolls) {
+        while (not(result) && rerolls < maxRerolls) {
             result = rnd();
             rerolls++;
         }
