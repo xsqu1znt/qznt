@@ -24,26 +24,26 @@ import { $ } from "qznt";
 import { obj, Loop, date } from "qznt";
 
 // Deep object access (defaults to "dark" if mode is undefined)
-const theme = $.obj.get(settings, "ui.theme.mode", "dark");
+const theme = qznt.obj.get(settings, "ui.theme.mode", "dark");
 
 // Human-readable durations
-const timeRemaining = $.date.duration(Date.now() + 5000); // "5 seconds"
+const timeRemaining = qznt.date.duration(Date.now() + 5000); // "5 seconds"
 ```
 
 ## 📦 Namespaces
 
-- **`$.arr` (Lists)**: Advanced `chunk`, `cluster`, `shuffle`, `unique`, and `seqMap`
-- **`$.async` (Promises)**: `retry` logic with exponential backoff and delay
-- **`$.date` (Time)**: Shorthand parsing (`"1h 30m"`), `duration` (digital/hms), and `eta`
-- **`$.fn` (Functions)**: `memoize` with TTL and custom resolvers
-- **`$.format` (Strings)**: `currency`, `memory` (bytes), `ordinal`, and `compactNumber`
-- **`$.is` (Predicates)**: Type guards: `is.today`, `is.empty`, `is.object`, and `is.sorted`
-- **`$.math` (Calculations)**: `lerp`, `invLerp`, `remap`, `percent`, and `sum`
-- **`$.num` (Numbers)**: Essential logic like `clamp` and range handling
-- **`$.obj` (Data)**: Type-safe deep paths (`get`, `set`, `merge`, `pick`, `omit`)
-- **`$.rnd` (Random)**: Seedable PRNG, `weighted` choice, `sampler`, and `chance`
-- **`$.timing` (Execution)**: `debounce`, `throttle`, and promise-based `wait`
-- **`$.to` (Transformations)**: Powerful data mappers like `to.record`
+- **`qznt.arr` (Lists)**: Advanced `chunk`, `cluster`, `shuffle`, `unique`, and `seqMap`
+- **`qznt.async` (Promises)**: `retry` logic with exponential backoff and delay
+- **`qznt.date` (Time)**: Shorthand parsing (`"1h 30m"`), `duration` (digital/hms), and `eta`
+- **`qznt.fn` (Functions)**: `memoize` with TTL and custom resolvers
+- **`qznt.format` (Strings)**: `currency`, `memory` (bytes), `ordinal`, and `compactNumber`
+- **`qznt.is` (Predicates)**: Type guards: `is.today`, `is.empty`, `is.object`, and `is.sorted`
+- **`qznt.math` (Calculations)**: `lerp`, `invLerp`, `remap`, `percent`, and `sum`
+- **`qznt.num` (Numbers)**: Essential logic like `clamp` and range handling
+- **`qznt.obj` (Data)**: Type-safe deep paths (`get`, `set`, `merge`, `pick`, `omit`)
+- **`qznt.rnd` (Random)**: Seedable PRNG, `weighted` choice, `sampler`, and `chance`
+- **`qznt.timing` (Execution)**: `debounce`, `throttle`, and promise-based `wait`
+- **`qznt.to` (Transformations)**: Powerful data mappers like `to.record`
 
 ## ✨ Featured Utilities
 
@@ -54,9 +54,9 @@ The `qznt.Loop` ensures asynchronous tasks never overlap. It waits for execution
 ```ts
 import $ from "qznt";
 
-const heartbeat = new $.Loop<string>(async () => {
+const heartbeat = new qznt.Loop<string>(async () => {
     return await syncData();
-}, $.date.parse("10s"));
+}, qznt.date.parse("10s"));
 
 // Result is automatically inferred as 'string'
 heartbeat.on("tick", res => console.log(`Synced: ${res}`));
@@ -69,16 +69,16 @@ heartbeat.resume(); // Resumes with the exact remaining delay
 
 `qznt` provides high-performant data persistence and memory management.
 
-- `$.Cache`: An in-memory TTL cache with Sampled Passive/Active Eviction. It automatically cleans up expired entries to prevent memory leaks without blocking the event loop.
-- `$.Storage`: A universal persistence layer. It automatically uses `localStorage` in the browser and falls back to a local JSON file in Node.js environments.
+- `qznt.Cache`: An in-memory TTL cache with Sampled Passive/Active Eviction. It automatically cleans up expired entries to prevent memory leaks without blocking the event loop.
+- `qznt.Storage`: A universal persistence layer. It automatically uses `localStorage` in the browser and falls back to a local JSON file in Node.js environments.
 
 ```ts
 // Cache with a 1-minute global TTL
-const userCache = new $.Cache<UserData>(60000);
+const userCache = new qznt.Cache<UserData>(60000);
 userCache.set("user_1", data);
 
 // Persistent storage (Browser or Node)
-const settings = new $.Storage("app_settings");
+const settings = new qznt.Storage("app_settings");
 settings.set("theme", "dark");
 ```
 
@@ -88,7 +88,7 @@ Every random utility in `qznt` accepts an optional seed. This allows you to gene
 
 ```ts
 // Always returns the same item for seed 12345
-const item = $.rnd.choice(["Sword", "Shield", "Potion"], 12345);
+const item = qznt.rnd.choice(["Sword", "Shield", "Potion"], 12345);
 ```
 
 ### Object Merging
@@ -96,7 +96,7 @@ const item = $.rnd.choice(["Sword", "Shield", "Potion"], 12345);
 A deep, recursive merge that maintains TypeScript's type safety across multiple sources.
 
 ```ts
-const config = $.obj.merge(defaultConfig, userConfig, envOverrides);
+const config = qznt.obj.merge(defaultConfig, userConfig, envOverrides);
 ```
 
 ### Type Guards
@@ -104,11 +104,11 @@ const config = $.obj.merge(defaultConfig, userConfig, envOverrides);
 The `is` namespace provides predicates that act as TypeScript type guards, ensuring safety across your application.
 
 ```ts
-if ($.is.today(user.lastLogin)) {
+if (qznt.is.today(user.lastLogin)) {
     console.log("Welcome back!");
 }
 
-if ($.is.empty(results)) {
+if (qznt.is.empty(results)) {
     return "No data found";
 }
 ```
@@ -118,9 +118,9 @@ if ($.is.empty(results)) {
 The `to` and `arr` namespaces provide _exquisite_ ways to transform data structures while maintaining total type safety.
 
 ```ts
-const userRecord = $.to.record(usersArray, u => ({
+const userRecord = qznt.to.record(usersArray, u => ({
     key: u.id,
-    value: { name: u.username, active: $.is.today(u.lastLogin) }
+    value: { name: u.username, active: qznt.is.today(u.lastLogin) }
 }));
 ```
 
