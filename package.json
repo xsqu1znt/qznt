@@ -1,7 +1,7 @@
 {
     "name": "qznt",
     "version": "1.0.0",
-    "description": "A lightweight, xsqu1zn't utility library for high-performance Node.js and TypeScript apps.",
+    "description": "A lightweight typed utility toolkit for modern TypeScript environments.",
     "license": "MIT",
     "author": "xsqu1znt",
     "main": "./dist/index.cjs",
