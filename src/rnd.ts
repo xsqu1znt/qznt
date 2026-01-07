@@ -1,5 +1,14 @@
 export type AlphaCasing = "lower" | "upper" | "mixed";
 
+export interface RndArrayOptions {
+    /** Optional seed for RNG. */
+    seed?: number;
+    /** Reroll if the result is equal to this value. */
+    not?: any;
+    /** Maximum number of times to reroll if `not` is specified. [default: 10] */
+    maxRerolls?: number;
+}
+
 export interface RndStrOptions {
     casing?: AlphaCasing;
     seed?: number;
@@ -26,11 +35,27 @@ function chance(percent: number = 0.5, seed?: number): boolean {
 /**
  * Returns a random item from the given array.
  * @param array Array of items to choose from.
- * @param seed Optional seed for RNG.
+ * @param options Options for the choice function.
  */
-function choice<T>(array: T[], seed?: number): T {
+function choice<T>(array: T[], options: RndArrayOptions = {}): T {
+    const { seed, not, maxRerolls = 10 } = options;
     const random = seed !== undefined ? prng(seed) : Math.random;
-    return array[Math.floor(random() * array.length)]!;
+    const rnd = () => array[Math.floor(random() * array.length)]!;
+
+    let result: T = rnd();
+
+    // NOTE: Ignores rerolling if seed is set and result is equal to `not`
+    // to prevent infinite loops
+    if (seed !== undefined && array.length > 1) {
+        let rerolls = 0;
+
+        while (not !== undefined && result === not && rerolls < maxRerolls) {
+            result = rnd();
+            rerolls++;
+        }
+    }
+
+    return result;
 }
 
 /**
@@ -54,11 +79,11 @@ function weighted<T>(array: T[], selector: (item: T) => number, seed?: number): 
 
     const decider = random() * currentSum;
 
-    let index = cumulativeWeights.findIndex(w => w >= decider);
+    let index: number;
 
     // Linear search | O(n)
     if (array.length < 20) {
-        cumulativeWeights.findIndex(w => w >= decider);
+        index = cumulativeWeights.findIndex(w => w >= decider);
     }
     // Binary Search | O(log n)
     else {
@@ -157,11 +182,27 @@ function float(min: number, max: number, seed?: number): number {
 /**
  * Returns a random index from the given array.
  * @param array The array to generate an index for.
- * @param seed Optional seed for RNG.
+ * @param options Options for the index function.
  */
-function index(array: any[], seed?: number): number {
+function index(array: any[], options: RndArrayOptions = {}): number {
+    const { seed, not, maxRerolls = 10 } = options;
     const random = seed !== undefined ? prng(seed) : Math.random;
-    return Math.floor(random() * array.length);
+    const rnd = () => Math.floor(random() * array.length);
+
+    let result: number = rnd();
+
+    // NOTE: Ignores rerolling if seed is set and result is equal to `not`
+    // to prevent infinite loops
+    if (seed !== undefined && array.length > 1) {
+        let rerolls = 0;
+
+        while (not !== undefined && result === not && rerolls < maxRerolls) {
+            result = rnd();
+            rerolls++;
+        }
+    }
+
+    return result;
 }
 
 /**
