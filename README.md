@@ -23,21 +23,21 @@ import { $ } from "qznt";
 // or
 import { obj, Loop, date } from "qznt";
 
-// Deep object access (defaults to "dark" if mode is undefined)
+// Nested object access (defaults to "dark" if mode is undefined)
 const theme = qznt.obj.get(settings, "ui.theme.mode", "dark");
 
-// Human-readable durations
+// Readable durations
 const timeRemaining = $.date.duration(Date.now() + 5000); // "in 5 seconds"
 ```
 
 ## 📦 Namespaces
 
-- **`qznt.arr` (Lists)**: Advanced `chunk`, `cluster`, `shuffle`, `unique`, and `seqMap`
+- **`qznt.arr` (Arrays)**: Advanced `chunk`, `cluster`, `shuffle`, `unique`, and `seqMap`
 - **`qznt.async` (Promises)**: `retry` logic with exponential backoff and delay
 - **`qznt.date` (Time)**: Shorthand parsing (`"1h 30m"`), `duration` (digital/hms), and `eta`
 - **`qznt.fn` (Functions)**: `memoize` with TTL and custom resolvers
 - **`qznt.format` (Strings)**: `currency`, `memory` (bytes), `ordinal`, and `compactNumber`
-- **`$.fs` (File System)**: Efficient recursive directory scanning with `readDir`
+- **`qznt.fs` (File System)**: Efficient recursive directory scanning with `readDir`
 - **`qznt.is` (Predicates)**: Type guards: `is.today`, `is.empty`, `is.object`, and `is.sorted`
 - **`qznt.math` (Calculations)**: `lerp`, `invLerp`, `remap`, `percent`, and `sum`
 - **`qznt.num` (Numbers)**: Essential logic like `clamp` and range handling
@@ -50,7 +50,7 @@ const timeRemaining = $.date.duration(Date.now() + 5000); // "in 5 seconds"
 
 ### The Smart `Loop`
 
-The `qznt.Loop` ensures asynchronous tasks never overlap. It waits for execution to finish before scheduling the next interval and supports precise pausing/resuming based on remaining time.
+`qznt.Loop` ensures async tasks never overlap. It waits for execution to finish before scheduling the next interval, and supports precise pausing/resuming. This is usually more efficient than `node-cron` for tasks that don't need scheduling.
 
 ```ts
 import qznt from "qznt";
@@ -70,8 +70,8 @@ heartbeat.resume(); // Resumes with the exact remaining delay
 
 `qznt` provides high-performant data persistence and memory management.
 
-- `qznt.Cache`: An in-memory TTL cache with Sampled Passive/Active Eviction. It automatically cleans up expired entries to prevent memory leaks without blocking the event loop.
-- `qznt.Storage`: A universal persistence layer. It automatically uses `localStorage` in the browser and falls back to a local JSON file in Node.js environments.
+- `qznt.Cache`: Is an in-memory TTL cache with Sampled Passive/Active Eviction. It automatically purges expired entries to prevent memory leaks without blocking the event loop.
+- `qznt.Storage`: Is a persistence layer. It automatically uses `localStorage` in browsers and falls back to local JSON files in Node.js environments. Think a mini-Redis cache.
 
 ```ts
 // Cache with a 1-minute global TTL
@@ -85,7 +85,7 @@ settings.set("theme", "dark");
 
 ### Seedable Randomness
 
-Every random utility in `qznt` accepts an optional seed. This allows you to generate predictable random data for testing, games, or procedural generation.
+Every random utility in `qznt.rnd` accepts an optional seed. This allows you to generate predictable random data for testing, games, or procedural generation.
 
 ```ts
 // Always returns the same item for seed 12345
@@ -94,7 +94,7 @@ const item = qznt.rnd.choice(["Sword", "Shield", "Potion"], 12345);
 
 ### Object Merging
 
-A deep, recursive merge that maintains TypeScript's type safety across multiple sources.
+A deep, recursive merge that maintains type safety across multiple sources.
 
 ```ts
 const config = qznt.obj.merge(defaultConfig, userConfig, envOverrides);
@@ -102,7 +102,7 @@ const config = qznt.obj.merge(defaultConfig, userConfig, envOverrides);
 
 ### Type Guards
 
-The `is` namespace provides predicates that act as TypeScript type guards, ensuring safety across your application.
+The `qznt.is` namespace provides predicates that act as type guards, ensuring type safety across your app.
 
 ```ts
 if (qznt.is.today(user.lastLogin)) {
@@ -116,7 +116,7 @@ if (qznt.is.empty(results)) {
 
 ### Type-Safe Transformations
 
-The `to` and `arr` namespaces provide _exquisite_ ways to transform data structures while maintaining total type safety.
+The `qznt.to` and `qznt.arr` namespaces also provide _✨ exquisite ✨_ ways to transform data structures while maintaining type safety.
 
 ```ts
 const userRecord = qznt.to.record(usersArray, u => ({
