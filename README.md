@@ -131,10 +131,8 @@ const userRecord = $.to.record(usersArray, u => ({
 - Strictly Typed: Deep inference for everything from EventEmitter results to object paths.
 - Node & Browser: Optimized for Node.js but safe for modern browsers.
 
-## About
+## 👋 About
 
-Library by **@xsqu1znt**
-
-_Created originally as a core library for my projects._ Published for anyone to use.
+_Built by **@xsqu1znt** as a core library for my projects._ Published for anyone to use.
 
 License: MIT
