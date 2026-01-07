@@ -27,7 +27,7 @@ import { obj, Loop, date } from "qznt";
 const theme = qznt.obj.get(settings, "ui.theme.mode", "dark");
 
 // Human-readable durations
-const timeRemaining = $.date.duration(Date.now() + 5000); // "5 seconds"
+const timeRemaining = $.date.duration(Date.now() + 5000); // "in 5 seconds"
 ```
 
 ## 📦 Namespaces
