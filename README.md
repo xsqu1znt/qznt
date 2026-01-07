@@ -32,18 +32,18 @@ const timeRemaining = $.date.duration(Date.now() + 5000); // "5 seconds"
 
 ## 📦 Namespaces
 
-- **`$.obj` (Data)**: Type-safe deep paths (`get`, `set`, `merge`, `pick`, `omit`)
 - **`$.arr` (Lists)**: Advanced `chunk`, `cluster`, `shuffle`, `unique`, and `seqMap`
+- **`$.async` (Promises)**: `retry` logic with exponential backoff and delay
+- **`$.date` (Time)**: Shorthand parsing (`"1h 30m"`), `duration` (digital/hms), and `eta`
+- **`$.fn` (Functions)**: `memoize` with TTL and custom resolvers
+- **`$.format` (Strings)**: `currency`, `memory` (bytes), `ordinal`, and `compactNumber`
+- **`$.is` (Predicates)**: Type guards: `is.today`, `is.empty`, `is.object`, and `is.sorted`
+- **`$.math` (Calculations)**: `lerp`, `invLerp`, `remap`, `percent`, and `sum`
+- **`$.num` (Numbers)**: Essential logic like `clamp` and range handling
+- **`$.obj` (Data)**: Type-safe deep paths (`get`, `set`, `merge`, `pick`, `omit`)
 - **`$.rnd` (Random)**: Seedable PRNG, `weighted` choice, `sampler`, and `chance`
 - **`$.timing` (Execution)**: `debounce`, `throttle`, and promise-based `wait`
-- **`$.date` (Time)**: Shorthand parsing (`"1h 30m"`), `duration` (digital/hms), and `eta`
-- **`$.is` (Predicates)**: Type guards: `is.today`, `is.empty`, `is.object`, and `is.sorted`
-- **`$.format` (Strings)**: `currency`, `memory` (bytes), `ordinal`, and `compactNumber`
-- **`$.math` (Calculations)**: `lerp`, `invLerp`, `remap`, `percent`, and `sum`
-- **`$.fn` (Functions)**: `memoize` with TTL and custom resolvers
-- **`$.async` (Promises)**: `retry` logic with exponential backoff and delay
 - **`$.to` (Transformations)**: Powerful data mappers like `to.record`
-- **`$.num` (Numbers)**: Essential logic like `clamp` and range handling
 
 ## ✨ Featured Utilities
 
