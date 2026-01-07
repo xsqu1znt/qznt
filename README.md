@@ -46,7 +46,7 @@ const time = $.date.duration(Date.now() + 5000); // "in 5 seconds"
 - **`qznt.timing` (Execution)**: `debounce`, `throttle`, and promise-based `wait`
 - **`qznt.to` (Transformations)**: Powerful data mappers like `to.record`
 
-_These are just the highlights, there are more utilities available inside._
+_These are just the highlights, there's more inside._
 
 ## ✨ Featured Utilities
 
