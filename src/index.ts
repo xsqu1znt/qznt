@@ -15,7 +15,7 @@ import { Storage } from "./Storage";
 import { Cache } from "./Cache";
 import { Loop } from "./Loop";
 
-const $ = {
+const qznt = {
     ...arrayUtils,
     ...asyncUtils,
     ...functionUtils,
@@ -34,8 +34,8 @@ const $ = {
     Loop
 };
 
-export const qznt = $;
-export default $;
+export const $ = qznt;
+export default qznt;
 
 export * from "./arr";
 export * from "./async";

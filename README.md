@@ -14,12 +14,12 @@ yarn add qznt
 
 ## 🛠 Quick Start
 
-You can import this library as `$`, `qznt`, or specific namespaces.
+You can import this library as `qznt`, `$`, or specific namespaces.
 
 ```ts
-import $ from "qznt";
+import qznt from "qznt";
 // or
-import { qznt } from "qznt";
+import { $ } from "qznt";
 // or
 import { obj, Loop, date } from "qznt";
 
