@@ -27,7 +27,7 @@ import { obj, Loop, date } from "qznt";
 const theme = qznt.obj.get(settings, "ui.theme.mode", "dark");
 
 // Readable durations
-const timeRemaining = $.date.duration(Date.now() + 5000); // "in 5 seconds"
+const time = $.date.duration(Date.now() + 5000); // "in 5 seconds"
 ```
 
 ## 📦 Namespaces
@@ -46,11 +46,13 @@ const timeRemaining = $.date.duration(Date.now() + 5000); // "in 5 seconds"
 - **`qznt.timing` (Execution)**: `debounce`, `throttle`, and promise-based `wait`
 - **`qznt.to` (Transformations)**: Powerful data mappers like `to.record`
 
+_These are just the highlights, there are more utilities available inside._
+
 ## ✨ Featured Utilities
 
 ### The Smart `Loop`
 
-`qznt.Loop` ensures async tasks never overlap. It waits for execution to finish before scheduling the next interval, and supports precise pausing/resuming. This is usually more efficient than `node-cron` for tasks that don't need scheduling.
+`qznt.Loop` ensures async tasks never overlap. It waits for execution to finish before scheduling the next interval, and supports precise pausing/resuming. _This is usually more efficient than `node-cron` for tasks that don't need scheduling._
 
 ```ts
 import qznt from "qznt";
@@ -70,8 +72,8 @@ heartbeat.resume(); // Resumes with the exact remaining delay
 
 `qznt` provides high-performant data persistence and memory management.
 
-- `qznt.Cache`: Is an in-memory TTL cache with Sampled Passive/Active Eviction. It automatically purges expired entries to prevent memory leaks without blocking the event loop.
-- `qznt.Storage`: Is a persistence layer. It automatically uses `localStorage` in browsers and falls back to local JSON files in Node.js environments. Think a mini-Redis cache.
+- `qznt.Cache`: An in-memory TTL cache with Sampled Passive/Active Eviction. It automatically purges expired entries to prevent memory leaks without blocking the event loop.
+- `qznt.Storage`: A persistent cache. It automatically uses `localStorage` in browsers and falls back to local JSON files in Node.js environments. Think a mini, smart-Redis cache.
 
 ```ts
 // Cache with a 1-minute global TTL
