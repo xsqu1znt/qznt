@@ -62,7 +62,7 @@ function string(val: unknown): val is string {
 /**
  * Checks if a date is today.
  */
-export function today(date: number | Date): boolean {
+function today(date: number | Date): boolean {
     const d = date instanceof Date ? date : new Date(date);
     const today = new Date();
     return d.getDate() === today.getDate() && d.getMonth() === today.getMonth() && d.getFullYear() === today.getFullYear();

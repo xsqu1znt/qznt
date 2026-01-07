@@ -16,7 +16,7 @@ import { Storage } from "./Storage";
 import { Cache } from "./Cache";
 import { Loop } from "./Loop";
 
-export const $ = {
+const $ = {
     ...arrayUtils,
     ...asyncUtils,
     ...functionUtils,
@@ -35,6 +35,9 @@ export const $ = {
     Cache,
     Loop
 };
+
+export const qznt = $;
+export default $;
 
 export * from "./arr";
 export * from "./async";

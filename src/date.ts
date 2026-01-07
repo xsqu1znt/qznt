@@ -36,7 +36,7 @@ const MS_MAP: Record<string, number> = {
  * @param style The output style to use.
  * @param options Formatting options.
  */
-export function duration(
+function duration(
     target: number | Date,
     style: "digital" | "hms" | "ymdhms" = "hms",
     options: DateOptions = {}
@@ -108,7 +108,7 @@ function eta(date: Date | number, locale?: Intl.LocalesArgument): string {
 /**
  * Parses shorthand strings (1h 30m) into milliseconds or seconds.
  */
-export function parse(str: string | number, options: ParseOptions = {}): number {
+function parse(str: string | number, options: ParseOptions = {}): number {
     if (typeof str === "number") return str;
 
     const matches = str.matchAll(/(-?\d+)([a-z]+)/gi);
