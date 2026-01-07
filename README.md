@@ -37,6 +37,7 @@ const timeRemaining = $.date.duration(Date.now() + 5000); // "5 seconds"
 - **`qznt.date` (Time)**: Shorthand parsing (`"1h 30m"`), `duration` (digital/hms), and `eta`
 - **`qznt.fn` (Functions)**: `memoize` with TTL and custom resolvers
 - **`qznt.format` (Strings)**: `currency`, `memory` (bytes), `ordinal`, and `compactNumber`
+- **`$.fs` (File System)**: Efficient recursive directory scanning with `readDir`
 - **`qznt.is` (Predicates)**: Type guards: `is.today`, `is.empty`, `is.object`, and `is.sorted`
 - **`qznt.math` (Calculations)**: `lerp`, `invLerp`, `remap`, `percent`, and `sum`
 - **`qznt.num` (Numbers)**: Essential logic like `clamp` and range handling

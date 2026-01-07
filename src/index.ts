@@ -3,6 +3,7 @@ import * as asyncUtils from "./async";
 import * as functionUtils from "./fn";
 import * as dateUtils from "./date";
 import * as formatUtils from "./format";
+import * as fileUtils from "./fs";
 import * as isUtils from "./is";
 import * as mathUtils from "./math";
 import * as objectUtils from "./obj";
@@ -21,6 +22,7 @@ const qznt = {
     ...functionUtils,
     ...dateUtils,
     ...formatUtils,
+    ...fileUtils,
     ...isUtils,
     ...mathUtils,
     ...objectUtils,
@@ -42,6 +44,7 @@ export * from "./async";
 export * from "./fn";
 export * from "./date";
 export * from "./format";
+export * from "./fs";
 export * from "./is";
 export * from "./math";
 export * from "./obj";

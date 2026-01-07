@@ -95,10 +95,13 @@ function secs(num: number): number {
  * @param selector Function that selects the item's weight.
  * @param ignoreNaN If true, NaN values will not throw an error.
  */
-function sum<T>(array: T[], selector: (item: T) => number, ignoreNaN?: boolean): number {
-    return array.map(selector).reduce((a, b) => {
-        const invalid = isNaN(b) && !ignoreNaN;
-        if (invalid) throw new TypeError(`sum: '${b}' is not a valid number.`);
+function sum<T>(array: T[], selector?: (item: T) => number): number {
+    const _array = selector ? array.map(selector) : array;
+    if (!_array.every(v => typeof v === "number")) {
+        throw new TypeError(`sum: Array must only contain numbers.`);
+    }
+
+    return _array.reduce((a, b) => {
         return (isNaN(b) ? 0 : b) < 0 ? a - -b : a + (b || 0);
     }, 0);
 }
