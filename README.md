@@ -14,7 +14,7 @@ yarn add qznt
 
 ## 🛠 Quick Start
 
-You can import the global toolkit as `$`, `qznt`, or specific namespaces.
+You can import this library as `$`, `qznt`, or specific namespaces.
 
 ```ts
 import $ from "qznt";
