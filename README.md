@@ -1,6 +1,6 @@
 # qznt
 
-**qznt** (pronounced as in _ex-quisite_) is a strictly-typed, high-performant utility toolkit for modern TypeScript/Javascript and Node.js environments.
+**qznt** (pronounced as in _ex-quisite_) is a lightweight, typed, high-performant utility toolkit for modern TypeScript/JavaScript and Node.js environments.
 
 ## 🚀 Installation
 
