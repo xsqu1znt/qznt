@@ -14,7 +14,7 @@ yarn add qznt
 
 ## 🛠 Quick Start
 
-You can import this library as `qznt`, `$`, or specific namespaces.
+You can import this library as `qznt`, `$`, or by namespace.
 
 ```ts
 import qznt from "qznt";
