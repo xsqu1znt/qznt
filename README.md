@@ -106,7 +106,9 @@ if ($.is.empty(results)) {
 ## 👨‍💻 Author
 
 **xsqu1znt**
-_Created as a core library for my projects._
+
+(_Created as a core library for my projects._)
+
 Published for anyone to use.
 
 License: MIT
