@@ -4,7 +4,7 @@ export interface RndArrayOptions<T> {
     /** Optional seed for RNG. */
     seed?: number;
     /** Reroll if the result is equal to this value. */
-    not?: (item: T) => boolean;
+    not?: ((item: T) => boolean) | T;
     /** Maximum number of times to reroll if `not` is specified. [default: 10] */
     maxRerolls?: number;
 }
@@ -50,10 +50,11 @@ function choice<T>(array: T[], options: RndArrayOptions<T> = {}): T {
 
     // NOTE: Ignores rerolling if seed is set and result is equal to `not`
     // to prevent infinite loops
-    if (seed !== undefined && array.length > 1 && not !== undefined) {
+    if (seed === undefined && array.length > 1 && not !== undefined) {
         let rerolls = 0;
 
-        while (not(result) && rerolls < maxRerolls) {
+        const shouldReroll = () => (typeof not === "function" ? (not as (item: T) => boolean)(result) : result === not);
+        while (shouldReroll() && rerolls < maxRerolls) {
             result = rnd();
             rerolls++;
         }
@@ -197,10 +198,11 @@ function index<T>(array: T[], options: RndArrayOptions<number> = {}): number {
 
     // NOTE: Ignores rerolling if seed is set and result is equal to `not`
     // to prevent infinite loops
-    if (seed !== undefined && array.length > 1 && not !== undefined) {
+    if (seed === undefined && array.length > 1 && not !== undefined) {
         let rerolls = 0;
 
-        while (not(result) && rerolls < maxRerolls) {
+        const shouldReroll = () => (typeof not === "function" ? (not as (item: number) => boolean)(result) : result === not);
+        while (shouldReroll() && rerolls < maxRerolls) {
             result = rnd();
             rerolls++;
         }
