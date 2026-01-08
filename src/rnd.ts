@@ -4,7 +4,7 @@ export interface RndArrayOptions<T> {
     /** Optional seed for RNG. */
     seed?: number;
     /** Reroll if the result is equal to this value. */
-    not?: ((item: T) => boolean) | T;
+    not?: ((item: T) => boolean) | (T | null | undefined);
     /** Maximum number of times to reroll if `not` is specified. [default: 10] */
     maxRerolls?: number;
 }
