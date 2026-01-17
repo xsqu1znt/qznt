@@ -68,12 +68,4 @@ function today(date: number | Date): boolean {
     return d.getDate() === today.getDate() && d.getMonth() === today.getMonth() && d.getFullYear() === today.getFullYear();
 }
 
-export const is = {
-    defined,
-    empty,
-    inRange,
-    object,
-    sorted,
-    string,
-    today
-};
+export { defined, empty, inRange, object, sorted, string, today };

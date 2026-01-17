@@ -75,7 +75,4 @@ function throttle<T extends (...args: any[]) => any>(fn: T, limit: number): (...
     };
 }
 
-export const timing = {
-    debounce,
-    throttle
-};
+export { debounce, throttle };

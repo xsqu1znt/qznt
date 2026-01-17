@@ -65,9 +65,4 @@ function toTitleCase(str: string, smart = true): string {
     });
 }
 
-export const str = {
-    escapeRegex,
-    getFlag,
-    hasFlag,
-    toTitleCase
-};
+export { escapeRegex, getFlag, hasFlag, toTitleCase };

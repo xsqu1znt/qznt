@@ -1,4 +1,4 @@
-import { rnd } from "./rnd";
+import * as rnd from "./rnd";
 
 export type SequentialMapContext<T, U> = {
     index: number;
@@ -245,15 +245,4 @@ function unique<T>(array: T[], key: (item: T) => any): T[] {
     return Array.from(new Map(array.map(item => [key(item), item])).values());
 }
 
-export const arr = {
-    chunk,
-    chunkAdj,
-    cluster,
-    compact,
-    forceArray,
-    search,
-    seqMap,
-    shuffle,
-    sortBy,
-    unique
-};
+export { chunk, chunkAdj, cluster, compact, forceArray, search, seqMap, shuffle, sortBy, unique };

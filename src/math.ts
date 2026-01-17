@@ -106,13 +106,4 @@ function sum<T>(array: T[], selector?: (item: T) => number): number {
     }, 0);
 }
 
-export const math = {
-    clamp,
-    invLerp,
-    lerp,
-    ms,
-    percent,
-    remap,
-    secs,
-    sum
-};
+export { clamp, invLerp, lerp, ms, percent, remap, secs, sum };

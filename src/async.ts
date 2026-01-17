@@ -26,7 +26,4 @@ function wait(ms: number): Promise<boolean> {
     );
 }
 
-export const async = {
-    retry,
-    wait
-};
+export { retry, wait };

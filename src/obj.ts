@@ -164,11 +164,4 @@ function omit<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K
     return result;
 }
 
-export const obj = {
-    get,
-    has,
-    set,
-    merge,
-    pick,
-    omit
-};
+export { get, has, set, merge, pick, omit };

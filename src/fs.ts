@@ -47,6 +47,4 @@ function readDir(path: string, options: ReadDirOptions = {}): string[] {
     return walk(path);
 }
 
-export const fs = {
-    readDir
-};
+export { readDir };

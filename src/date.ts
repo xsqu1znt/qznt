@@ -130,8 +130,4 @@ function parse(str: string | number, options: ParseOptions = {}): number {
     return options.fromNow ? Date.now() + result : result;
 }
 
-export const date = {
-    duration,
-    eta,
-    parse
-};
+export { duration, eta, parse };

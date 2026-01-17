@@ -256,14 +256,4 @@ function str(len: number, mode: "number" | "alpha" | "alphanumeric" | "custom", 
     return result.join("");
 }
 
-export const rnd = {
-    chance,
-    choice,
-    weighted,
-    sampler,
-    prng,
-    float,
-    index,
-    int,
-    str
-};
+export { chance, choice, weighted, sampler, prng, float, index, int, str };

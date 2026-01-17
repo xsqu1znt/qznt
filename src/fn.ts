@@ -67,6 +67,4 @@ function memoize<T extends (...args: any[]) => any>(
     return memoized;
 }
 
-export const fn = {
-    memoize
-};
+export { memoize };

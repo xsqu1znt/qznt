@@ -1,35 +1,35 @@
-import * as arrayUtils from "./arr";
-import * as asyncUtils from "./async";
-import * as functionUtils from "./fn";
-import * as dateUtils from "./date";
-import * as formatUtils from "./format";
-import * as fileUtils from "./fs";
-import * as isUtils from "./is";
-import * as mathUtils from "./math";
-import * as objectUtils from "./obj";
-import * as randomUtils from "./rnd";
-import * as stringUtils from "./str";
-import * as timingUtils from "./timing";
-import * as toUtils from "./to";
+import * as arr from "./arr";
+import * as async from "./async";
+import * as fn from "./fn";
+import * as date from "./date";
+import * as format from "./format";
+import * as fs from "./fs";
+import * as is from "./is";
+import * as math from "./math";
+import * as obj from "./obj";
+import * as rnd from "./rnd";
+import * as str from "./str";
+import * as timing from "./timing";
+import * as to from "./to";
 import { Pipe } from "./Pipe";
 import { Storage } from "./Storage";
 import { Cache } from "./Cache";
 import { Loop } from "./Loop";
 
 const qznt = {
-    ...arrayUtils,
-    ...asyncUtils,
-    ...functionUtils,
-    ...dateUtils,
-    ...formatUtils,
-    ...fileUtils,
-    ...isUtils,
-    ...mathUtils,
-    ...objectUtils,
-    ...timingUtils,
-    ...randomUtils,
-    ...stringUtils,
-    ...toUtils,
+    arr,
+    async,
+    fn,
+    date,
+    format,
+    fs,
+    is,
+    math,
+    obj,
+    timing,
+    rnd,
+    str,
+    to,
     Pipe,
     Storage,
     Cache,

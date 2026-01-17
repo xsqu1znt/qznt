@@ -95,10 +95,4 @@ function compactNumber(num: number, locale?: Intl.LocalesArgument): string {
     }).format(num);
 }
 
-export const format = {
-    currency,
-    number,
-    memory,
-    ordinal,
-    compactNumber
-};
+export { currency, number, memory, ordinal, compactNumber };

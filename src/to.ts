@@ -33,6 +33,4 @@ function record<T, V>(
     return result;
 }
 
-export const to = {
-    record
-};
+export { record };
