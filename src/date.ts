@@ -106,6 +106,20 @@ function eta(date: Date | number, locale?: Intl.LocalesArgument): string {
 }
 
 /**
+ * Calculates the age of a person based on their birthdate.
+ * @param birthdate The birthdate of the person.
+ * */
+function getAge(birthdate: Date): number {
+    const today = new Date();
+    let age = today.getFullYear() - birthdate.getFullYear();
+    const monthDiff = today.getMonth() - birthdate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthdate.getDate())) {
+        age--;
+    }
+    return age;
+}
+
+/**
  * Parses shorthand strings (1h 30m) into milliseconds or seconds.
  */
 function parse(str: string | number, options: ParseOptions = {}): number {
@@ -130,4 +144,4 @@ function parse(str: string | number, options: ParseOptions = {}): number {
     return options.fromNow ? Date.now() + result : result;
 }
 
-export { duration, eta, parse };
+export { duration, eta, getAge, parse };

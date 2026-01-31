@@ -106,4 +106,18 @@ function sum<T>(array: T[], selector?: (item: T) => number): number {
     }, 0);
 }
 
-export { clamp, invLerp, lerp, ms, percent, remap, secs, sum };
+/**
+ * Wraps a number into a modular range.
+ * @param num The value to wrap.
+ * @param max The upper bound.
+ * @example
+ * ```ts
+ * wrap(12, 10); // 2
+ * wrap(-1, 10); // 9 (last index)
+ * ```
+ */
+function wrap(num: number, max: number): number {
+    return ((num % max) + max) % max;
+}
+
+export { clamp, invLerp, lerp, ms, percent, remap, secs, sum, wrap };
