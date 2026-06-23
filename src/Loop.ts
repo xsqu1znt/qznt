@@ -1,5 +1,5 @@
 import EventEmitter from "node:events";
-import { TypedEmitter } from "./types";
+import type { TypedEmitter } from "./types.js";
 
 export type LoopState = "running" | "paused" | "stopped";
 

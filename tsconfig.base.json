@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        // --- Core ---
+        "target": "es2022",
+        "module": "node20",
+        "types": ["node"],
+
+        // --- Output ---
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+
+        // --- Strictness ---
+        "strict": true,
+        "strictNullChecks": true,
+        "noUncheckedIndexedAccess": true,
+        "noImplicitOverride": true,
+        "noImplicitAny": true,
+
+        // --- Imports ---
+        "verbatimModuleSyntax": true,
+        "isolatedModules": true,
+
+        // --- Safety ---
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

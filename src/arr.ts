@@ -1,4 +1,4 @@
-import * as rnd from "./rnd";
+import * as rnd from "./rnd.js";
 
 export type SequentialMapContext<T, U> = {
     index: number;

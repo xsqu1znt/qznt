@@ -1,6 +1,6 @@
 {
     "name": "qznt",
-    "version": "1.0.36",
+    "version": "1.0.37",
     "description": "A lightweight typed utility toolkit for modern TypeScript environments.",
     "license": "MIT",
     "author": "xsqu1znt",
@@ -11,11 +11,10 @@
         ".": {
             "types": "./dist/index.d.ts",
             "import": "./dist/index.js",
-            "require": "./dist/index.cjs",
-            "default": "./dist/index.js"
-        },
-        "./package.json": "./package.json"
+            "require": "./dist/index.cjs"
+        }
     },
+    "type": "module",
     "files": [
         "dist",
         "README.md"
