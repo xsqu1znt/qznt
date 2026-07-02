@@ -1,6 +1,6 @@
 {
     "name": "qznt",
-    "version": "1.0.37",
+    "version": "2.0.0",
     "description": "A lightweight typed utility toolkit for modern TypeScript environments.",
     "license": "MIT",
     "author": "xsqu1znt",
@@ -25,10 +25,9 @@
         "format": "prettier --write \"./**/*.{ts,json}\""
     },
     "devDependencies": {
-        "@types/node": "^25.0.3",
-        "prettier": "^3.7.4",
+        "@types/node": "^25.9.4",
+        "prettier": "^3.9.4",
         "tsup": "^8.5.1",
-        "type-fest": "^5.3.1",
         "typescript": "^5.9.3"
     }
 }
