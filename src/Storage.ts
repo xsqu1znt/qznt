@@ -32,9 +32,9 @@ export class Storage {
 
     /**
      * A lightweight, high-performant persistent storage system.
-     * Uses JSON files in Node.js, localStorage in the browser.
-     * @param fileName Only used in Node.js to create a persistent .json file.
-     * @param directory The directory for the file. Defaults to current working directory.
+     * Uses JSON files in Node.js, localStorage in the browser
+     * @param fileName Only used in Node.js to create a persistent .json file
+     * @param directory The directory for the file. Defaults to current working directory
      */
     constructor(fileName?: string, directory: string = process.cwd()) {
         if (this.isNode && fileName) {

@@ -1,15 +1,15 @@
 /**
  * Retrieves a nested property.
- * @param obj The object to process.
- * @param path The path to retrieve (e.g., 'data.users[0].id').
- * @param defaultValue The default value to return if the property does not exist.
+ * @param obj The object to process
+ * @param path The path to retrieve (e.g., 'data.users[0].id')
+ * @param defaultValue The default value to return if the property does not exist
  */
-function get<T = any>(obj: Record<string, any>, path: string, defaultValue?: T): T {
+export function getProp<T = unknown>(obj: Record<string, unknown>, path: string, defaultValue?: T): T {
     if (!obj) throw new Error("get: Target object is null or undefined");
 
     // Normalize and split
     const parts = path.replace(/\[(\d+)\]/g, ".$1").split(".");
-    let current: any = obj;
+    let current = obj;
     const trace: string[] = [];
 
     for (const part of parts) {
@@ -25,7 +25,7 @@ function get<T = any>(obj: Record<string, any>, path: string, defaultValue?: T):
             throw new Error(`get: Path broken at "${reach}". ` + `Property "${part}" is missing on ${typeof current}.`);
         }
 
-        current = current[part];
+        current = current[part] as any;
     }
 
     // Handle the case where the final value found is undefined
@@ -38,14 +38,14 @@ function get<T = any>(obj: Record<string, any>, path: string, defaultValue?: T):
 
 /**
  * Checks if a nested path exists within an object.
- * @param obj The object to process.
- * @param path The path string (e.g., 'data.users[0].id').
+ * @param obj The object to process
+ * @param path The path to check (e.g., 'data.users[0].id')
  */
-function has(obj: Record<string, any>, path: string): boolean {
+export function hasProp(obj: Record<string, unknown>, path: string): boolean {
     if (!obj || !path) return false;
 
     const parts = path.replace(/\[(\d+)\]/g, ".$1").split(".");
-    let current: any = obj;
+    let current = obj;
 
     for (let i = 0; i < parts.length; i++) {
         const part = parts[i]!;
@@ -60,21 +60,21 @@ function has(obj: Record<string, any>, path: string): boolean {
             return false;
         }
 
-        current = current[part];
+        current = current[part] as any;
     }
 
     return true;
 }
 
 /**
- * Sets a nested property value. Creates missing objects/arrays along the path.
- * @param obj The object to process.
- * @param path The path to set (e.g., 'data.users[0].id').
- * @param value The value to inject.
+ * Sets a nested property value. Recursively creates missing objects/arrays along the path.
+ * @param obj The object to process
+ * @param path The path to set (e.g., 'data.users[0].id')
+ * @param value The value to inject
  */
-function set(obj: Record<string, any>, path: string, value: any): void {
+export function setProp(obj: Record<string, unknown>, path: string, value: unknown): void {
     const parts = path.replace(/\[(\d+)\]/g, ".$1").split(".");
-    let current: any = obj;
+    let current = obj;
 
     for (let i = 0; i < parts.length; i++) {
         const part = parts[i]!;
@@ -92,20 +92,20 @@ function set(obj: Record<string, any>, path: string, value: any): void {
             current[part] = nextPartIsNumber ? [] : {};
         }
 
-        current = current[part];
+        current = current[part] as any;
     }
 }
 
 /**
  * Deep merges multiple objects.
- * @param target - The base object to merge into.
- * @param sources - One or more objects to merge.
+ * @param target - The base object to merge into
+ * @param sources - One or more objects to merge
  */
-function merge<T, S1>(target: T, s1: S1): T & S1;
-function merge<T, S1, S2>(target: T, s1: S1, s2: S2): T & S1 & S2;
-function merge<T, S1, S2, S3>(target: T, s1: S1, s2: S2, s3: S3): T & S1 & S2 & S3;
-function merge(target: any, ...sources: any[]): any;
-function merge(target: any, ...sources: any[]) {
+export function merge<T, S1>(target: T, s1: S1): T & S1;
+export function merge<T, S1, S2>(target: T, s1: S1, s2: S2): T & S1 & S2;
+export function merge<T, S1, S2, S3>(target: T, s1: S1, s2: S2, s3: S3): T & S1 & S2 & S3;
+export function merge(target: any, ...sources: any[]): unknown;
+export function merge(target: any, ...sources: any[]) {
     // Loop through every source object provided
     for (const source of sources) {
         if (!source) continue;
@@ -138,10 +138,10 @@ function merge(target: any, ...sources: any[]) {
 
 /**
  * Creates an object composed of the picked object properties.
- * @param obj The object to process.
- * @param keys The keys to pick from the object.
+ * @param obj The object to process
+ * @param keys The keys to pick from the object
  */
-function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
+export function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
     const result = {} as Pick<T, K>;
     for (const key of keys) {
         if (key in obj) {
@@ -153,15 +153,13 @@ function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K
 
 /**
  * Creates an object composed of the omitted object properties.
- * @param obj The object to process.
- * @param keys The keys to omit from the object.
+ * @param obj The object to process
+ * @param keys The keys to omit from the object
  */
-function omit<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
+export function omit<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
     const result = { ...obj };
     for (const key of keys) {
         delete result[key];
     }
     return result;
 }
-
-export { get, has, set, merge, pick, omit };

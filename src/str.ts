@@ -1,17 +1,17 @@
 /**
  * Escapes regex characters in the given string.
- * @param str - The string to process.
+ * @param str The string to process
  */
-function escapeRegex(str: string): string {
+export function escapeRegex(str: string): string {
     return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 /**
  * Retrieves a substring following a specific flag.
- * @param str The string to process.
- * @param flag A string or regex to look for.
+ * @param str The string to process
+ * @param flag A string or regex to look for
  */
-function getFlag(str: string, flag: string | RegExp, length?: number): string | null {
+export function getFlag(str: string, flag: string | RegExp, length?: number): string | null {
     // NOTE: Using \b ensures we don't match "flag" inside "flagpole"
     const regex = flag instanceof RegExp ? flag : new RegExp(`${escapeRegex(flag)}\\b`, "g");
 
@@ -31,10 +31,10 @@ function getFlag(str: string, flag: string | RegExp, length?: number): string | 
 
 /**
  * Checks if a string contains a specific flag.
- * @param str The string to process.
- * @param flag A string or regex to look for.
+ * @param str The string to process
+ * @param flag A string or regex to look for
  */
-function hasFlag(str: string, flag: string | RegExp): boolean {
+export function hasFlag(str: string, flag: string | RegExp): boolean {
     if (flag instanceof RegExp) return flag.test(str);
 
     // NOTE: Using \b ensures we don't match "flag" inside "flagpole"
@@ -43,11 +43,21 @@ function hasFlag(str: string, flag: string | RegExp): boolean {
 }
 
 /**
- * Formats a string to Title Case, optionally keeping acronyms and skipping minor words (the, and, of, etc.).
- * @param str The string to process.
- * @param smart If true, will keep acronyms and skip minor words. [default: true]
+ * Returns the singular or plural form based on the given count.
+ * @param count The amount to compare against 1
+ * @param singular The word to use when count is exactly 1
+ * @param plural The word to use otherwise [default: `${singular}s`]
  */
-function toTitleCase(str: string, smart = true): string {
+export function pluralize(count: number, singular: string, plural = `${singular}s`): string {
+    return count === 1 ? singular : plural;
+}
+
+/**
+ * Formats a string to Title Case, optionally keeping acronyms and skipping minor words (the, and, of, etc.).
+ * @param str The string to process
+ * @param smart If true, will keep acronyms and skip minor words [default: true]
+ */
+export function toTitleCase(str: string, smart = true): string {
     const minorWords = /^(a|an|and|as|at|but|by|en|for|if|in|of|on|or|the|to|v\.?|via)$/i;
 
     return str.replace(/\w\S*/g, (txt, index) => {
@@ -64,5 +74,3 @@ function toTitleCase(str: string, smart = true): string {
         return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();
     });
 }
-
-export { escapeRegex, getFlag, hasFlag, toTitleCase };

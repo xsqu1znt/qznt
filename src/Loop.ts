@@ -1,7 +1,7 @@
 import EventEmitter from "node:events";
 import type { TypedEmitter } from "./types.js";
 
-export type LoopState = "running" | "paused" | "stopped";
+type LoopState = "running" | "paused" | "stopped";
 
 export interface LoopEvents<T> {
     start: [];
@@ -9,14 +9,14 @@ export interface LoopEvents<T> {
     pause: [{ remaining: number }];
     resume: [];
     stop: [];
-    error: [error: any];
+    error: [error: unknown];
 }
 
 const TypedEmitterBase = EventEmitter as { new <T>(): TypedEmitter<LoopEvents<T>> };
 
-export class Loop<T = any> extends TypedEmitterBase<T> {
+export class Loop<T = unknown> extends TypedEmitterBase<T> {
     private _state: LoopState = "stopped";
-    private timeoutId: any = null;
+    private timeoutId: NodeJS.Timeout | null = null;
     private delay: number;
     private fn: (loop: Loop<T>) => Promise<T> | T;
 

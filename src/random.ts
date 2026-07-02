@@ -1,22 +1,22 @@
 export type AlphaCasing = "lower" | "upper" | "mixed";
 
 export interface RndArrayOptions<T> {
-    /** Optional seed for RNG. */
+    /** Optional seed for RNG */
     seed?: number;
-    /** Reroll if the result is equal to this value. */
+    /** Reroll if the result is equal to this value */
     not?: ((item: T) => boolean) | (T | null | undefined);
-    /** Maximum number of times to reroll if `not` is specified. [default: 10] */
+    /** Maximum number of times to reroll if `not` is specified [default: 10] */
     maxRerolls?: number;
 }
 
 export interface RndStrOptions {
-    /** Optional seed for RNG. */
+    /** Optional seed for RNG */
     seed?: number;
-    /** Character casing mode. */
+    /** Character casing mode */
     casing?: AlphaCasing;
-    /** Custom character pool. */
+    /** Custom character pool */
     customChars?: string;
-    /** Characters to exclude from the pool. */
+    /** Characters to exclude from the pool */
     exclude?: string | string[];
 }
 
@@ -26,10 +26,10 @@ const NUM = "0123456789";
 
 /**
  * Returns true based on a percentage probability.
- * @param percent A value between 0 and 1. [default: 0.5]
- * @param seed Optional seed for RNG.
+ * @param percent A value between 0 and 1 [default: 0.5]
+ * @param seed Optional seed for RNG
  */
-function chance(percent: number = 0.5, seed?: number): boolean {
+export function rndChance(percent: number = 0.5, seed?: number): boolean {
     if (percent <= 0) return false;
     if (percent >= 1) return true;
     const random = seed !== undefined ? prng(seed) : Math.random;
@@ -38,10 +38,10 @@ function chance(percent: number = 0.5, seed?: number): boolean {
 
 /**
  * Returns a random item from the given array.
- * @param array Array of items to choose from.
- * @param options Options for the choice function.
+ * @param array Array of items to choose from
+ * @param options Options for the choice function
  */
-function choice<T>(array: T[], options: RndArrayOptions<T> = {}): T {
+export function rndChoice<T>(array: T[], options: RndArrayOptions<T> = {}): T {
     const { seed, not, maxRerolls = 10 } = options;
     const random = seed !== undefined ? prng(seed) : Math.random;
     const rnd = () => array[Math.floor(random() * array.length)]!;
@@ -65,11 +65,11 @@ function choice<T>(array: T[], options: RndArrayOptions<T> = {}): T {
 
 /**
  * Returns a random item from the given array based on their corresponding weights.
- * @param array Array of items to choose from.
- * @param selector Function that selects the item's weight.
- * @param seed Optional seed for RNG.
+ * @param array Array of items to choose from
+ * @param predicate Predicate that selects the item's weight
+ * @param seed Optional seed for RNG
  */
-function weighted<T>(array: T[], selector: (item: T) => number, seed?: number): T {
+export function weightedRnd<T>(array: T[], predicate: (item: T) => number, seed?: number): T {
     const random = seed !== undefined ? prng(seed) : Math.random;
 
     const cumulativeWeights: number[] = [];
@@ -77,7 +77,7 @@ function weighted<T>(array: T[], selector: (item: T) => number, seed?: number): 
 
     // Calculate cumulative weights
     for (const item of array) {
-        const weight = selector(item);
+        const weight = predicate(item);
         currentSum += weight;
         cumulativeWeights.push(currentSum);
     }
@@ -110,20 +110,20 @@ function weighted<T>(array: T[], selector: (item: T) => number, seed?: number): 
 }
 
 /**
- * Returns an object with a single method, `pick`, which returns a random item from the given array in O(1) time.
+ * Creates an O(1) sampler for weighted random selection.
  * The probability of each item being picked is determined by the corresponding weight in the `weights` array.
- * @param items Array of items to choose from.
- * @param selector Function that selects the item's weight.
- * @param seed Optional seed for RNG.
+ * @param items Array of items to choose from
+ * @param predicate Predicate that selects the item's weight
+ * @param seed Optional seed for RNG
  */
-function sampler<T>(items: T[], selector: (item: T) => number, seed?: number) {
+export function createSampler<T>(items: T[], predicate: (item: T) => number, seed?: number) {
     const callRandom = seed ? prng(seed) : undefined;
     const len = items.length;
 
     const prob = new Array(len);
     const alias = new Array(len);
 
-    const weights = items.map(selector);
+    const weights = items.map(predicate);
     const totalWeight = weights.reduce((a, b) => a + b, 0);
     const scaledWeights = weights.map(w => (w * len) / totalWeight);
 
@@ -146,8 +146,8 @@ function sampler<T>(items: T[], selector: (item: T) => number, seed?: number) {
 
     return {
         /**
-         * Returns a random item from the given array in O(1) time.
-         * @param seed Optional seed for RNG.
+         * Returns a random item from the given array in O(1) time
+         * @param seed Optional seed for RNG
          */
         pick: (seed?: number) => {
             const random = seed !== undefined ? prng(seed) : callRandom || Math.random;
@@ -159,12 +159,12 @@ function sampler<T>(items: T[], selector: (item: T) => number, seed?: number) {
 
 /**
  * Creates a deterministic pseudo-random number generator (PRNG) using the Mulberry32 algorithm.
- * @param seed An integer seed value.
+ * @param seed An integer seed value
  * @example
  * const rng = prng(123);
  * const val1 = rng(); // Always the same for seed 123
  */
-function prng(seed: number): () => number {
+export function prng(seed: number): () => number {
     return () => {
         let t = (seed += 0x6d2b79f5);
         t = Math.imul(t ^ (t >>> 15), t | 1);
@@ -175,21 +175,21 @@ function prng(seed: number): () => number {
 
 /**
  * Generates a random float between the given minimum and maximum values.
- * @param min The minimum value (inclusive) for the random float.
- * @param max The maximum value (inclusive) for the random float.
- * @param seed Optional seed for RNG.
+ * @param min The minimum value (inclusive) for the random float
+ * @param max The maximum value (inclusive) for the random float
+ * @param seed Optional seed for RNG
  */
-function float(min: number, max: number, seed?: number): number {
+export function rndFloat(min: number, max: number, seed?: number): number {
     const random = seed !== undefined ? prng(seed) : Math.random;
     return random() * (max - min) + min;
 }
 
 /**
  * Returns a random index from the given array.
- * @param array The array to generate an index for.
- * @param options Options for the index function.
+ * @param array The array to generate an index for
+ * @param options Options for the index function
  */
-function index<T>(array: T[], options: RndArrayOptions<number> = {}): number {
+export function rndIndex<T>(array: T[], options: RndArrayOptions<number> = {}): number {
     const { seed, not, maxRerolls = 10 } = options;
     const random = seed !== undefined ? prng(seed) : Math.random;
     const rnd = () => Math.floor(random() * array.length);
@@ -213,22 +213,22 @@ function index<T>(array: T[], options: RndArrayOptions<number> = {}): number {
 
 /**
  * Generates a random integer between the given minimum and maximum values.
- * @param min The minimum value (inclusive) for the random integer.
- * @param max The maximum value (inclusive) for the random integer.
- * @param seed Optional seed for RNG.
+ * @param min The minimum value (inclusive) for the random integer
+ * @param max The maximum value (inclusive) for the random integer
+ * @param seed Optional seed for RNG
  */
-function int(min: number, max: number, seed?: number): number {
+export function rndInt(min: number, max: number, seed?: number): number {
     const random = seed !== undefined ? prng(seed) : Math.random;
     return Math.floor(random() * (max - min + 1)) + min;
 }
 
 /**
  * Generates a random string of the given length using the specified character pool.
- * @param len The length of the random string.
- * @param mode The character pool to use. Can be "number", "alpha", "alphanumeric", or "custom".
- * @param options Options for the rndStr function.
+ * @param len The length of the random string
+ * @param mode The character pool to use
+ * @param options Options for the rndStr function
  */
-function str(len: number, mode: "number" | "alpha" | "alphanumeric" | "custom", options: RndStrOptions = {}) {
+export function rndString(len: number, mode: "number" | "alpha" | "alphanumeric" | "custom", options: RndStrOptions = {}) {
     const { casing = "lower", seed, customChars = "", exclude = "" } = options;
     const random = seed !== undefined ? prng(seed) : Math.random;
 
@@ -255,5 +255,3 @@ function str(len: number, mode: "number" | "alpha" | "alphanumeric" | "custom", 
 
     return result.join("");
 }
-
-export { chance, choice, weighted, sampler, prng, float, index, int, str };

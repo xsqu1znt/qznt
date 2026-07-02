@@ -2,16 +2,16 @@ import _fs from "node:fs";
 import { join } from "node:path";
 
 export interface ReadDirOptions {
-    /** Whether to scan subdirectories. [default: true] */
+    /** Whether to scan subdirectories [default: true] */
     recursive?: boolean;
 }
 
 /**
  * Recursively (or shallowly) scans a directory and returns an array of relative file paths.
- * @param path The path to the directory.
- * @param options Options for the readDir function.
+ * @param path The path to the directory
+ * @param options Options for the readDir function
  */
-function readDir(path: string, options: ReadDirOptions = {}): string[] {
+export function readDir(path: string, options: ReadDirOptions = {}): string[] {
     const { recursive = true } = options;
 
     if (!_fs.existsSync(path)) return [];
@@ -46,5 +46,3 @@ function readDir(path: string, options: ReadDirOptions = {}): string[] {
 
     return walk(path);
 }
-
-export { readDir };
