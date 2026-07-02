@@ -2,7 +2,7 @@ export * from "./Cache.js";
 export * from "./Loop.js";
 export * from "./Pipe.js";
 export * from "./Storage.js";
-export * from "./arr.js";
+export * from "./array.js";
 export * from "./async.js";
 export * from "./date.js";
 export * from "./exec.js";

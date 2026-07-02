@@ -9,10 +9,10 @@ export type SequentialMapContext<T, U> = {
 
 /**
  * Splits an array into sub-arrays (chunks) of a maximum size.
- * @param array Array to process.
- * @param size The maximum size of each chunk.
+ * @param array Array to process
+ * @param size The maximum size of each chunk
  */
-function chunk<T>(array: ReadonlyArray<T>, size: number): T[][] {
+export function chunk<T>(array: ReadonlyArray<T>, size: number): T[][] {
     if (size <= 0) throw new Error("chunk: Size must be a positive integer.");
 
     const result: T[][] = [];
@@ -27,14 +27,14 @@ function chunk<T>(array: ReadonlyArray<T>, size: number): T[][] {
 
 /**
  * Groups adjacent elements of an array together based on a predicate.
- * @param array Array to process.
- * @param predicate A function that returns true if two adjacent elements belong in the same chunk.
+ * @param array Array to process
+ * @param predicate A function that returns true if two adjacent elements belong in the same chunk
  * @example
  * // Group consecutive identical numbers
  * chunkBy([1, 1, 2, 3, 3, 3], (a, b) => a === b);
  * // [[1, 1], [2], [3, 3, 3]]
  */
-function chunkAdj<T>(array: ReadonlyArray<T>, predicate: (prev: T, curr: T) => boolean): T[][] {
+export function chunkAdj<T>(array: ReadonlyArray<T>, predicate: (prev: T, curr: T) => boolean): T[][] {
     if (array.length === 0) return [];
 
     const results: T[][] = [];
@@ -59,11 +59,11 @@ function chunkAdj<T>(array: ReadonlyArray<T>, predicate: (prev: T, curr: T) => b
 
 /**
  * Groups elements by a key.
- * @param array Array to process.
- * @param iteratee Function to determine the key to group by.
- * @param maxChunkSize Optionally chunk groups and flatten them (useful for pagination).
+ * @param array Array to process
+ * @param iteratee Function to determine the key to group by
+ * @param maxChunkSize Optionally chunk groups and flatten them (useful for pagination)
  */
-function cluster<T>(array: ReadonlyArray<T>, iteratee: (item: T) => string | number, maxChunkSize?: number): T[][] {
+export function cluster<T>(array: ReadonlyArray<T>, iteratee: (item: T) => string | number, maxChunkSize?: number): T[][] {
     const groups = new Map<string | number, T[]>();
 
     for (const item of array) {
@@ -95,12 +95,12 @@ function cluster<T>(array: ReadonlyArray<T>, iteratee: (item: T) => string | num
 
 /**
  * Removes unwanted values from an array.
- * @param array Array to process.
- * @param mode 'nullable' (default) removes null/undefined. 'falsy' removes null, undefined, 0, "", false, and NaN.
+ * @param array Array to process
+ * @param mode 'nullable' (default) removes null/undefined. 'falsy' removes null, undefined, 0, "", false, and NaN
  */
-function compact<T>(array: ReadonlyArray<T>, mode?: "nullable"): NonNullable<T>[];
-function compact<T>(array: ReadonlyArray<T>, mode: "falsy"): Exclude<T, null | undefined | false | 0 | "">[];
-function compact<T>(array: ReadonlyArray<T>, mode: "nullable" | "falsy" = "nullable"): any[] {
+export function compactArray<T>(array: ReadonlyArray<T>, mode?: "nullable"): NonNullable<T>[];
+export function compactArray<T>(array: ReadonlyArray<T>, mode: "falsy"): Exclude<T, null | undefined | false | 0 | "">[];
+export function compactArray<T>(array: ReadonlyArray<T>, mode: "nullable" | "falsy" = "nullable"): any[] {
     if (mode === "falsy") {
         // Boolean constructor handles all falsy values
         return array.filter(Boolean);
@@ -114,7 +114,7 @@ function compact<T>(array: ReadonlyArray<T>, mode: "nullable" | "falsy" = "nulla
  * Forces a given item to be an array.
  * @param item The item to force into an array.
  */
-function forceArray<T>(item: T): T[] {
+export function forceArray<T>(item: T): T[] {
     return Array.isArray(item) ? item : [item];
 }
 
@@ -122,11 +122,11 @@ function forceArray<T>(item: T): T[] {
  * Searches a sorted array for a value using the binary search method.
  * Returns the index if found, or the bitwise complement (~index) of the
  * position where the value should be inserted to keep it sorted.
- * @param array The array to process.
- * @param target The value to search for.
- * @param comparator Optional comparator function.
+ * @param array The array to process
+ * @param target The value to search for
+ * @param comparator Optional comparator function
  */
-function search<T>(
+export function searchSorted<T>(
     array: T[],
     target: T,
     comparator: (a: T, b: T) => number = (a, b) => (a > b ? 1 : a < b ? -1 : 0)
@@ -148,10 +148,10 @@ function search<T>(
 
 /**
  * Maps over an array with access to the previously mapped elements.
- * @param array Array to process.
- * @param callback Function to map over the array.
+ * @param array Array to process
+ * @param callback Function to map over the array
  */
-function seqMap<T, U>(array: ReadonlyArray<T>, callback: (item: T, context: SequentialMapContext<T, U>) => U): U[] {
+export function seqMap<T, U>(array: ReadonlyArray<T>, callback: (item: T, context: SequentialMapContext<T, U>) => U): U[] {
     const len = array.length;
     const result: U[] = new Array(len);
 
@@ -170,10 +170,10 @@ function seqMap<T, U>(array: ReadonlyArray<T>, callback: (item: T, context: Sequ
 
 /**
  * Shuffles an array using the Fisher-Yates algorithm.
- * @param array The array to shuffle.
- * @param seed Optional seed for RNG.
+ * @param array The array to shuffle
+ * @param seed Optional seed for RNG
  */
-function shuffle<T>(array: ReadonlyArray<T>, seed?: number): T[] {
+export function shuffle<T>(array: ReadonlyArray<T>, seed?: number): T[] {
     const random = seed !== undefined ? rnd.prng(seed) : Math.random;
     const result = [...array];
 
@@ -189,19 +189,19 @@ function shuffle<T>(array: ReadonlyArray<T>, seed?: number): T[] {
 
 /**
  * Sorts an array by a single property in order.
- * @param order 'asc' for ascending (default) or 'desc' for descending.
- * @param array Array to process.
- * @param selector Function to determine the key to sort by.
+ * @param order 'asc' for ascending (default) or 'desc' for descending
+ * @param array Array to process
+ * @param selector Function to determine the key to sort by
  */
-function sortBy<T>(array: ReadonlyArray<T>, selector: (item: T) => any, order?: "asc" | "desc"): T[];
+export function sortBy<T>(array: ReadonlyArray<T>, selector: (item: T) => any, order?: "asc" | "desc"): T[];
 /**
  * Sorts an array by one or more properties in order.
- * @param order 'asc' for ascending (default) or 'desc' for descending.
- * @param array Array to process.
- * @param selectors Functions to determine the keys to sort by.
+ * @param order 'asc' for ascending (default) or 'desc' for descending
+ * @param array Array to process
+ * @param selectors Functions to determine the keys to sort by
  */
-function sortBy<T>(array: ReadonlyArray<T>, selectors: (item: T) => any[], order?: "asc" | "desc"): T[];
-function sortBy<T>(
+export function sortBy<T>(array: ReadonlyArray<T>, selectors: (item: T) => any[], order?: "asc" | "desc"): T[];
+export function sortBy<T>(
     array: ReadonlyArray<T>,
     selectorOrSelectors: (item: T) => any | ((item: T) => any)[],
     order: "asc" | "desc" = "asc"
@@ -238,11 +238,9 @@ function sortBy<T>(
 /**
  * Returns an array of unique elements from the given array.
  * Uniqueness is determined by the given key function.
- * @param array Array to process.
+ * @param array Array to process
  * @param key Function to determine the keys to filter by
  */
-function unique<T>(array: T[], key: (item: T) => any): T[] {
+export function unique<T>(array: T[], key: (item: T) => any): T[] {
     return Array.from(new Map(array.map(item => [key(item), item])).values());
 }
-
-export { chunk, chunkAdj, cluster, compact, forceArray, search, seqMap, shuffle, sortBy, unique };
