@@ -36,9 +36,9 @@ import { Loop, parseTime } from "qznt";
 const heartbeat = new Loop<string>(syncData, parseTime("10s"));
 
 // Result is inferred as 'string'
-heartbeat.on("tick", res => console.log(`Synced: ${res}`));
+heartbeat.on("tick", result => console.log(`Synced: ${result}`));
 
-heartbeat.pause(); // Calculates remaining time in the current cycle
+heartbeat.pause(); // Notes how much time's remaining until the next cycle
 heartbeat.resume(); // Resumes with the exact remaining delay
 ```
 
@@ -87,12 +87,12 @@ const config = merge(defaultConfig, userConfig, envOverrides);
 `qznt` provides predicates that act as type guards, ensuring type safety across your app.
 
 ```ts
-// Check if the provided date is from today
+// Checks if the user's lastLogin date is from today
 if (isToday(user.lastLogin)) {
     console.log("Welcome back!");
 }
 
-// Check if the `results` array is empty
+// Checks if the `results` array is empty
 if (isEmpty(results)) {
     return "No data found";
 }
