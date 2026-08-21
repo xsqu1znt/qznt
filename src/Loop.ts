@@ -32,7 +32,12 @@ export class Loop<T = unknown> extends TypedEmitterBase<T> {
             const result = await this.fn(this);
             this.emit("tick", result);
         } catch (err) {
-            this.emit("error", err);
+            // An unlistened "error" event makes EventEmitter throw synchronously, which would
+            // otherwise escape run() and skip the reschedule below. Swallow that so a failing
+            // tick never kills the loop.
+            try {
+                this.emit("error", err);
+            } catch {}
         }
 
         // Re-check state after the async function finishes
