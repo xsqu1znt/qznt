@@ -35,6 +35,15 @@ export class Cache<T> {
         return data.value;
     }
 
+    /**
+     * Removes a single entry from the cache.
+     * @param key The key to remove
+     * @returns Whether an entry existed and was removed
+     */
+    delete(key: string | number): boolean {
+        return this.cache.delete(key);
+    }
+
     private cleanup(): void {
         if (this.cache.size === 0) return;
 
