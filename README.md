@@ -55,6 +55,7 @@ import { Cache, Storage } from "qznt";
 // Cache with a 1-minute global TTL
 const userCache = new Cache<UserData>(60000);
 userCache.set("user_1", data);
+userCache.delete("user_1");
 
 // Persistent storage (Browser or NodeJS based)
 const settings = new Storage("app_settings");
