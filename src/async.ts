@@ -10,6 +10,40 @@ export interface RetryOptions {
 }
 
 /**
+ * Creates a queue that runs tasks in call order for each key, while different keys run concurrently.
+ * Task errors reach their callers without blocking later tasks. Drained keys are removed automatically.
+ * @example
+ * const queue = keyedQueue();
+ * const first = queue.run("user-1", () => saveInventory("user-1"));
+ * const second = queue.run("user-1", () => readInventory("user-1"));
+ * await Promise.all([first, second]); // The read runs after the save finishes
+ * console.log(queue.size); // 0 active keys
+ */
+export function keyedQueue() {
+    const queues = new Map<string | number, Promise<void>>();
+
+    return {
+        run<T>(key: string | number, work: () => T | Promise<T>): Promise<T> {
+            const previous = queues.get(key) ?? Promise.resolve();
+            const result = previous.then(work);
+
+            const release = () => {
+                // A completed task can only remove its key if no later task has been queued.
+                if (queues.get(key) === tail) queues.delete(key);
+            };
+
+            // The tail always fulfills, while result preserves the task's value or error.
+            const tail = result.then(release, release);
+            queues.set(key, tail);
+            return result;
+        },
+        get size() {
+            return queues.size;
+        }
+    };
+}
+
+/**
  * Retries an async function until the maximum number of attempts is reached.
  *
  * Implements exponential backoff with random jitter.
