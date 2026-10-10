@@ -108,9 +108,9 @@ export function FormatNumberCompact(num: number, locale?: Intl.LocalesArgument):
  * Duration formatter.
  *
  * Available styles:
- * - Digital (00:00)
- * - HMS
- * - YMDHMS.
+ * - "digital": MM:SS, HH:MM:SS, or D:HH:MM:SS.
+ * - "hms": hours, minutes, and seconds, with total hours that can exceed 23.
+ * - "ymdhms": days, hours, minutes, and seconds, with hours capped at 23.
  * @param target The target time to calculate from
  * @param style The output style to use
  * @param options Formatting options
@@ -128,7 +128,8 @@ export function formatDuration(
 
     const s = Math.floor(diff / 1000) % 60;
     const m = Math.floor(diff / 60000) % 60;
-    const h = Math.floor(diff / 3600000) % 24;
+    // HMS has no day component, so keep whole days in its hour count.
+    const h = style === "hms" ? Math.floor(diff / 3600000) : Math.floor(diff / 3600000) % 24;
     const d = Math.floor(diff / 86400000);
 
     if (style === "digital") {
